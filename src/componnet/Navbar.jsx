@@ -3,7 +3,8 @@ import Link from "next/link"
 import { useDispatch, useSelector } from 'react-redux'
 import { loginapp, logoutapp } from "@/lib/userSlice"
 import { useEffect } from "react"
-import  axios  from "axios"
+
+import Port from "@/lib/Port"
 
 
 
@@ -14,7 +15,7 @@ export default function Navbar() {
     useEffect(() => {
         const token = localStorage.getItem('token')
         if (token) {
-            axios.get('http://localhost:3000/account', {
+            Port.get('/account', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

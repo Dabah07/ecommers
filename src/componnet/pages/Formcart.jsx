@@ -2,11 +2,12 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import Port from "@/lib/Port";
 
 
 
 export default function ProductForm({ id }) {
-  
+
     const operation = id ? "edit" : "create";
     const router = useRouter();
     const [product, setPRODUCT] = useState({
@@ -15,9 +16,9 @@ export default function ProductForm({ id }) {
     const [error, setError] = useState("");
 
     useEffect(() => {
-    
+
         if (operation === "edit" && id) {
-            axios.get(`http://localhost:3000/product/${id}`)
+            Port.get(`/product/${id}`)
 
                 .then((res) => setPRODUCT(res.data))
                 .catch(err => setError("Failed to load product"));
@@ -49,17 +50,13 @@ export default function ProductForm({ id }) {
             const headers = {
                 'Authorization': `Bearer ${token}`
             };
-        
+
 
             if (operation === "create") {
-                const res = await axios.post('http://localhost:3000/products', formData, { headers });
-                localStorage.setItem('token', res.data.token);
-                
+                const res = await Port.post('/products', formData, { headers });
+
             } else {
-                const res = await axios.put(`http://localhost:3000/product/${id}`, formData, { headers });
-                localStorage.setItem('token', res.data.token);
-               
-         
+                const res = await Port.put(`/product/${id}`, formData, { headers });
             }
             router.push('/fpages/product');
         } catch (error) {
@@ -71,7 +68,7 @@ export default function ProductForm({ id }) {
         if (confirm("Are you sure you want to delete this product?")) {
             try {
                 const token = localStorage.getItem('token');
-                await axios.delete(`http://localhost:3000/product/${id}`, {
+                await Port.delete(`/product/${id}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 router.push('/');

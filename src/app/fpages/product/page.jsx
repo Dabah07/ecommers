@@ -1,54 +1,56 @@
 
 "use client"
+import Laft from "@/componnet/pages/Laft";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import Cart from '@/componnet/pages/Cart'
-import { useDispatch } from "react-redux";
+import Cart from '@/componnet/pages/Cart';
 import Filter from "@/componnet/Filter";
 import Link from "next/link";
+import Port from "@/lib/Port";
+import { useDispatch } from "react-redux";
+import { setmycrt } from "@/lib/CartSlice";
 
 const Page = () => {
     const isConnected = useSelector(state => state.user.isConnected)
-    const cartLength = useSelector(state => state.cart.products).length
+    const cartLength = useSelector(state => state.cart.products).reduce((old, mycart) => old += mycart.quantity, 0)
     const [products, setProducts] = useState([]);
+    const dispatch = useDispatch()
     useEffect(() => {
-        axios.get('http://localhost:3000/products')
+        Port.get('/products')
             .then((response) => setProducts(response.data))
+        const items = localStorage.getItem('mycrt')
+        if (items) {
+            dispatch(setmycrt(JSON.parse(items)))
+        }
     }, [])
     return (<>
-        <div className=" bg-gradient-to-t from-[#17100ae0] to-[#512f1faa]  from-10% p-4  rounded-2xl max-w-screen-2xl mx-auto">
-            <div className="flex justify-end mt-4   gap-9 items-center "> 
-              
-                <div>
-                    <Link className="text-2xl text-white" href='/fpages/cart'>Cart({cartLength})</Link>
-                 
+
+        <main className="bg-gradient-to-t from-[#17100ac4] to-[#512f1faa] from-25% p-4 rounded-2xl max-w-screen-2xl mx-auto flex gap-3">
+            <div className=" w-1/8 mt-3 text-start">
+                <Laft />
+            </div>
+            <div className=" ">
+                <div className="flex justify-between mt-2">
+                    <Filter />
+                    <div className="flex mb-1 gap-2 border border-primary rounded-md px-3">
+
+                        <Link className="text-xl  text-white" href='/fpages/cart'> My Product : [ {cartLength} ]</Link>
+
+                    </div>
+                </div>
+                <hr className="border-primary max-w-screen-lg" />
+
+                <div className="grid grid-cols-4 gap-4  max-w-screen-lg mt-5 ">
+                    {
+
+                        products.map(product => (
+                            <Cart key={product.id} product={product} />
+                        ))
+                    }
                 </div>
             </div>
 
-            <div className="mb-4 max-w-screen-lg mx-auto">
-                {isConnected && <Link
-                    href="/fpages/product/create"
-                    className="w-full px-4 py-2 ml-32  font-serif rounded-lg text-center text-white hover:text-black bg-yellow-500  hover:bg-yellow-600 ease-in-out duration-300"
-                >Add Product
-                </Link>}
-
-            </div>
-            <div className="flex ml-52">
-                <Filter />
-            </div>
-            <hr className="border-primary max-w-screen-lg ml-52" />
-
-            <div className="grid grid-cols-4 gap-4  max-w-screen-lg mt-5 ml-52">
-                {
-
-                    products.map(product => (
-                        <Cart key={product.id} product={product} />
-                    ))
-                }
-            </div>
-        </div>
-
+        </main>
 
     </>);
 }

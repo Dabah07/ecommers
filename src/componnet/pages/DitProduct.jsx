@@ -1,9 +1,10 @@
 "use client"
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import { useRouter } from "next/navigation";
 import Formcart from '@/componnet/pages/Formcart';
 import { useSelector } from "react-redux";
+import Port from "@/lib/Port";
 
 
 export default function ProductDetail({ id }) {
@@ -18,7 +19,7 @@ export default function ProductDetail({ id }) {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/product/${id}`);
+                const res = await Port.get(`/product/${id}`);
                 setProduct(res.data);
             } catch (error) {
                 setError("Failed to load product");
@@ -79,12 +80,12 @@ export default function ProductDetail({ id }) {
                         <div className="space-y-4 w-full flex flex-col">
 
                             <div className="flex flex-col  justify-center  shadow-white  w-[400px]  relative h-96">
-                                <h1 className="text-4xl text-center font-extrabold  underline mb-3  text-white ">{product.name}</h1>
+                                <h1 className="text-4xl text-center font-extrabold  underline p-2   text-white ">{product.name}</h1>
                                 {product.image && (
                                     <img
                                         src={product.image}
                                         alt={product.name}
-                                        className="object-cover w-[400] h-full bg-cover rounded-lg m-auto ounded-lg"
+                                        className="object-cover  w-[400] h-full bg-cover rounded-lg m-auto ounded-lg"
                                     />
                                 )}
                             </div>

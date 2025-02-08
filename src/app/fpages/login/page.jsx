@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { loginapp } from "@/lib/userSlice";
+import Port from "@/lib/Port";
 
 export default function login() {
 
@@ -33,7 +34,7 @@ export default function login() {
         }
 
         try {
-            const res = await axios.post('http://localhost:3000/login', { email, password });
+            const res = await Port.post('/login', { email, password });
 
 
             localStorage.setItem('token', res.data.token);
