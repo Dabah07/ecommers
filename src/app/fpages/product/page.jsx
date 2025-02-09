@@ -25,13 +25,15 @@ const Page = () => {
     }, [])
     return (<>
 
-        <main className="bg-gradient-to-t from-[#17100ac4] to-[#512f1faa] from-25% p-4 rounded-2xl max-w-screen-2xl mx-auto flex gap-3">
-            <div className=" w-1/8 mt-3 text-start">
+        <main className="bg-gradient-to-t from-[#17100ac4] to-[#512f1faa] from-25% p-4 rounded-2xl max-w-screen-2xl mx-auto flex gap-5">
+            <div className=" w-2/8 mt-3 text-start">
                 <Laft />
             </div>
             <div className=" ">
                 <div className="flex justify-between mt-2">
-                    <Filter />
+                  <div>
+                  <Filter />
+                  </div>
                     <div className="flex mb-1 gap-2 border border-primary rounded-md px-3">
 
                         <Link className="text-xl  text-white" href='/fpages/cart'> My Product : [ {cartLength} ]</Link>

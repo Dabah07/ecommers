@@ -65,7 +65,7 @@ export default function ProductDetail({ id }) {
                     <Formcart id={id} />
                 </>
             ) : (
-                <div className="bg-gradient-to-t from-[#130d08e0] to-[#512f1faa]  from-25% border border-primary max-w-4xl h-screen mx-auto  text-white rounded-lg shadow-lg p-6">
+                <div className="bg-gradient-to-t from-[#130d08e0] to-[#512f1faa]  from-25% border border-primary max-w-4xl mx-auto  text-white rounded-lg shadow-lg p-6">
                     <div className="flex  items-start ">
 
                         {isConnected && <button
@@ -79,7 +79,7 @@ export default function ProductDetail({ id }) {
                     <div className="flex justify-between gap-5 pt-4">
                         <div className="space-y-4 w-full flex flex-col">
 
-                            <div className="flex flex-col  justify-center  shadow-white  w-[400px]  relative h-96">
+                            <div className="flex flex-col  justify-center  shadow-white ">
                                 <h1 className="text-4xl text-center font-extrabold  underline p-2   text-white ">{product.name}</h1>
                                 {product.image && (
                                     <img
@@ -92,7 +92,7 @@ export default function ProductDetail({ id }) {
                         </div>
 
                         <div className="w-full text-justify  items-center">
-                            <div className="flex  flex-col text-start  maw-w-4xl pt-14 mx-auto">
+                            <div className="flex  flex-col text-start  max-w-4xl pt-14 mx-auto">
                                 <div className="flex gap-4">
                                     <h2 className="text-xl underline font-semibold mb-2">Price :</h2>
                                     <p className="text-2xl text-blue-600">{product.price} Da</p>
@@ -102,11 +102,10 @@ export default function ProductDetail({ id }) {
                                     <h2 className="text-xl underline font-semibold mb-2">Category :</h2>
                                     <p className="text-xl">{product.category}</p>
                                 </div>
+
                                 <div className="rounded-lg">
                                     <h2 className="text-xl underline font-semibold  ">Description</h2>
                                     <p className=" block bg-gray-400 p-2 pt-3 text-black text-xl rounded-md   text-justify ">{product.description}</p>
-
-
                                 </div>
                             </div>
 

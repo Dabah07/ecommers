@@ -26,6 +26,7 @@ export default function cart({ product }) {
                     <h3 className="text-xl font-serif">
                         {product.price} Da
                     </h3>
+                    
                 </div>
                
                 <div className="flex justify-center  rounded-lg  hover:text-black bg-yellow-500 hover:bg-yellow-600 ease-in-out duration-300">
